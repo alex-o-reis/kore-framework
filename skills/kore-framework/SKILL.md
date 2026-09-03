@@ -49,8 +49,15 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 
 ## 3. Frontend Guide (`kore-front`)
 - Single Page Application com roteamento por Hash.
-- Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI` (`UI.card()`, `UI.input()`, `UI.switch()`, `UI.fileUpload()`, `UI.toast()`, `UI.button()`, etc.).
+- Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI`:
+  - **Containers & Layout**: `UI.row()`, `UI.col()`, `UI.card()`, `UI.cardHeader()`, `UI.cardBody()`, `UI.cardFooter()`.
+  - **Formulários**: `UI.input()`, `UI.inputGroup()`, `UI.textarea()`, `UI.select()`, `UI.checkbox()`, `UI.radioButton()`, `UI.switch()`, `UI.fileUpload()`, `UI.hidden()`.
+  - **Navegação & Estrutura**: `UI.tabs()`, `UI.tabContent()`, `UI.accordion()`, `UI.breadcrumb()`, `UI.pagination()`.
+  - **Ações & Menus**: `UI.button()`, `UI.buttonGroup()`, `UI.dropdown()`, `UI.listGroup()`.
+  - **Feedback & Diálogos**: `UI.modal()`, `UI.confirmDialog()`, `UI.offcanvas()`, `UI.alert()`, `UI.badge()`, `UI.toast()`, `UI.progressBar()`, `UI.skeleton()`, `UI.icon()`, `UI.loadingIcon()`.
+  - **Helpers DOM**: `UI.setValue()`, `UI.showModal()`, `UI.hideModal()`, `UI.showOffcanvas()`, `UI.hideOffcanvas()`.
 - Suporte a multiplos Renderers customizados estendendo `BaseRenderer`.
+
 
 
 ## 4. Topologia: Monorepo vs Repositorios Separados (Multi-Repo)

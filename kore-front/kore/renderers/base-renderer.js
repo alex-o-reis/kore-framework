@@ -154,6 +154,49 @@ class BaseRenderer {
         throw new Error('Method tabContent() must be implemented by Renderer');
     }
 
+    // Accordion
+    accordion(id, items = [], classes = '') {
+        throw new Error('Method accordion() must be implemented by Renderer');
+    }
+
+    // Breadcrumb
+    breadcrumb(items = [], classes = '') {
+        throw new Error('Method breadcrumb() must be implemented by Renderer');
+    }
+
+    // Pagination
+    pagination(id, currentPage = 1, totalPages = 1, maxVisible = 5, classes = '') {
+        throw new Error('Method pagination() must be implemented by Renderer');
+    }
+
+    // Input Group & Button Group
+    inputGroup(id, label = '', inputEl = '', prepend = '', append = '', classes = '') {
+        throw new Error('Method inputGroup() must be implemented by Renderer');
+    }
+
+    buttonGroup(buttonsHtml = '', size = '', vertical = false, classes = '') {
+        throw new Error('Method buttonGroup() must be implemented by Renderer');
+    }
+
+    dropdown(id, text = '', items = [], color = 'primary', classes = '') {
+        throw new Error('Method dropdown() must be implemented by Renderer');
+    }
+
+    // List Group
+    listGroup(items = [], flush = false, classes = '') {
+        throw new Error('Method listGroup() must be implemented by Renderer');
+    }
+
+    // Offcanvas (Drawer lateral)
+    offcanvas(id, title = '', content = '', position = 'end', classes = '') {
+        throw new Error('Method offcanvas() must be implemented by Renderer');
+    }
+
+    // Skeleton / Placeholders
+    skeleton(type = 'text', count = 1, classes = '') {
+        throw new Error('Method skeleton() must be implemented by Renderer');
+    }
+
     // Ícones
     icon(iconName, classes = '') {
         throw new Error('Method icon() must be implemented by Renderer');

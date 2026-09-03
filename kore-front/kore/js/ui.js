@@ -161,6 +161,42 @@ class UI {
         return UI.getRenderer().tabContent(id, panesList);
     }
 
+    static accordion(id, items, classes) {
+        return UI.getRenderer().accordion(id, items, classes);
+    }
+
+    static breadcrumb(items, classes) {
+        return UI.getRenderer().breadcrumb(items, classes);
+    }
+
+    static pagination(id, currentPage, totalPages, maxVisible, classes) {
+        return UI.getRenderer().pagination(id, currentPage, totalPages, maxVisible, classes);
+    }
+
+    static inputGroup(id, label, inputEl, prepend, append, classes) {
+        return UI.getRenderer().inputGroup(id, label, inputEl, prepend, append, classes);
+    }
+
+    static buttonGroup(buttonsHtml, size, vertical, classes) {
+        return UI.getRenderer().buttonGroup(buttonsHtml, size, vertical, classes);
+    }
+
+    static dropdown(id, text, items, color, classes) {
+        return UI.getRenderer().dropdown(id, text, items, color, classes);
+    }
+
+    static listGroup(items, flush, classes) {
+        return UI.getRenderer().listGroup(items, flush, classes);
+    }
+
+    static offcanvas(id, title, content, position, classes) {
+        return UI.getRenderer().offcanvas(id, title, content, position, classes);
+    }
+
+    static skeleton(type, count, classes) {
+        return UI.getRenderer().skeleton(type, count, classes);
+    }
+
     static icon(iconName, classes) {
         return UI.getRenderer().icon(iconName, classes);
     }
@@ -212,6 +248,24 @@ class UI {
             if (modalInstance) modalInstance.hide();
         } else if (typeof jQuery !== 'undefined') {
             jQuery(selectorId).modal('hide');
+        }
+    }
+
+    static showOffcanvas(selectorId) {
+        let rawId = selectorId.startsWith('#') ? selectorId.substring(1) : selectorId;
+        let offcanvasEl = document.getElementById(rawId);
+        if (offcanvasEl && typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
+            let offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl) || new bootstrap.Offcanvas(offcanvasEl);
+            offcanvasInstance.show();
+        }
+    }
+
+    static hideOffcanvas(selectorId) {
+        let rawId = selectorId.startsWith('#') ? selectorId.substring(1) : selectorId;
+        let offcanvasEl = document.getElementById(rawId);
+        if (offcanvasEl && typeof bootstrap !== 'undefined' && bootstrap.Offcanvas) {
+            let offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasEl);
+            if (offcanvasInstance) offcanvasInstance.hide();
         }
     }
 }

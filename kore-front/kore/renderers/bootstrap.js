@@ -290,6 +290,192 @@ class BootstrapRenderer extends BaseRenderer {
         return this.div('tab-content p-3 border border-top-0 rounded-bottom bg-white', panesHtml);
     }
 
+    // Accordion
+    accordion(id, items = [], classes = '') {
+        let itemsHtml = '';
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let itemId = id + '-collapse-' + i;
+            let headerId = id + '-heading-' + i;
+            let show = item.active ? ' show' : '';
+            let collapsed = item.active ? '' : ' collapsed';
+
+            let btnAttrs = {
+                class: 'accordion-button' + collapsed,
+                type: 'button',
+                'data-bs-toggle': 'collapse',
+                'data-bs-target': '#' + itemId,
+                'aria-expanded': item.active ? 'true' : 'false',
+                'aria-controls': itemId
+            };
+            let btn = this.element('button', btnAttrs, item.title || item.header);
+            let header = this.element('h2', { class: 'accordion-header', id: headerId }, btn);
+            let body = this.div('accordion-body', item.content || item.body);
+            let collapse = this.element('div', {
+                id: itemId,
+                class: 'accordion-collapse collapse' + show,
+                'aria-labelledby': headerId,
+                'data-bs-parent': '#' + id
+            }, body);
+
+            itemsHtml += this.div('accordion-item', header + collapse);
+        }
+        return this.div('accordion ' + classes, itemsHtml, { id: id });
+    }
+
+    // Breadcrumb
+    breadcrumb(items = [], classes = '') {
+        let itemsHtml = '';
+        for (let i = 0; i < items.length; i++) {
+            let item = items[i];
+            let isLast = i === items.length - 1;
+            if (isLast || !item.url) {
+                itemsHtml += this.element('li', { class: 'breadcrumb-item active', 'aria-current': 'page' }, item.text || item.title);
+            } else {
+                let link = this.href(item.text || item.title, item.url);
+                itemsHtml += this.element('li', { class: 'breadcrumb-item' }, link);
+            }
+        }
+        let ol = this.element('ol', { class: 'breadcrumb mb-0 ' + classes }, itemsHtml);
+        return this.element('nav', { 'aria-label': 'breadcrumb' }, ol);
+    }
+
+    // Pagination
+    pagination(id, currentPage = 1, totalPages = 1, maxVisible = 5, classes = '') {
+        if (totalPages <= 1) return '';
+        let itemsHtml = '';
+
+        // Previous button
+        let prevDisabled = currentPage <= 1 ? ' disabled' : '';
+        let prevLink = this.element('a', { class: 'page-link', href: '#', 'data-page': currentPage - 1, 'aria-label': 'Anterior' }, '&laquo;');
+        itemsHtml += this.element('li', { class: 'page-item' + prevDisabled }, prevLink);
+
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisible - 1);
+        if (endPage - startPage + 1 < maxVisible) {
+            startPage = Math.max(1, endPage - maxVisible + 1);
+        }
+
+        for (let p = startPage; p <= endPage; p++) {
+            let active = p === currentPage ? ' active' : '';
+            let pageLink = this.element('a', { class: 'page-link', href: '#', 'data-page': p }, p);
+            itemsHtml += this.element('li', { class: 'page-item' + active }, pageLink);
+        }
+
+        // Next button
+        let nextDisabled = currentPage >= totalPages ? ' disabled' : '';
+        let nextLink = this.element('a', { class: 'page-link', href: '#', 'data-page': currentPage + 1, 'aria-label': 'Próximo' }, '&raquo;');
+        itemsHtml += this.element('li', { class: 'page-item' + nextDisabled }, nextLink);
+
+        let ul = this.element('ul', { class: 'pagination mb-0 ' + classes, id: id }, itemsHtml);
+        return this.element('nav', { 'aria-label': 'Navegação de página' }, ul);
+    }
+
+    // Input Group
+    inputGroup(id, label = '', inputEl = '', prepend = '', append = '', classes = '') {
+        let prependHtml = prepend ? (prepend.startsWith('<') ? prepend : this.span('input-group-text', prepend)) : '';
+        let appendHtml = append ? (append.startsWith('<') ? append : this.span('input-group-text', append)) : '';
+        let group = this.div('input-group ' + classes, prependHtml + inputEl + appendHtml);
+
+        if (!label) return group;
+        let labelEl = this.element('label', { for: id, class: 'form-label fw-medium' }, label);
+        return this.div('mb-3', labelEl + group);
+    }
+
+    buttonGroup(buttonsHtml = '', size = '', vertical = false, classes = '') {
+        let sizeClass = size ? ' btn-group-' + size : '';
+        let typeClass = vertical ? 'btn-group-vertical' : 'btn-group';
+        return this.div(typeClass + sizeClass + (classes ? ' ' + classes : ''), buttonsHtml, { role: 'group' });
+    }
+
+    dropdown(id, text = '', items = [], color = 'primary', classes = '') {
+        let btnAttrs = {
+            class: 'btn btn-' + color + ' dropdown-toggle ' + classes,
+            type: 'button',
+            id: id,
+            'data-bs-toggle': 'dropdown',
+            'aria-expanded': 'false'
+        };
+        let btn = this.element('button', btnAttrs, text);
+
+        let menuHtml = '';
+        for (let item of items) {
+            if (item.divider) {
+                menuHtml += this.element('li', {}, this.hr('dropdown-divider'));
+            } else if (item.header) {
+                menuHtml += this.element('li', {}, this.element('h6', { class: 'dropdown-header' }, item.header));
+            } else {
+                let linkAttrs = {
+                    class: 'dropdown-item' + (item.active ? ' active' : '') + (item.disabled ? ' disabled' : ''),
+                    href: item.url || '#'
+                };
+                if (item.id) linkAttrs.id = item.id;
+                if (item.data) {
+                    for (let [k, v] of Object.entries(item.data)) linkAttrs['data-' + k] = v;
+                }
+                let iconHtml = item.icon ? this.icon(item.icon) + ' ' : '';
+                menuHtml += this.element('li', {}, this.element('a', linkAttrs, iconHtml + (item.text || item.title)));
+            }
+        }
+
+        let menu = this.element('ul', { class: 'dropdown-menu shadow-sm', 'aria-labelledby': id }, menuHtml);
+        return this.div('dropdown d-inline-block', btn + menu);
+    }
+
+    // List Group
+    listGroup(items = [], flush = false, classes = '') {
+        let flushClass = flush ? ' list-group-flush' : '';
+        let itemsHtml = '';
+        for (let item of items) {
+            let active = item.active ? ' active' : '';
+            let disabled = item.disabled ? ' disabled' : '';
+            let isAction = item.action || item.url;
+            let tag = isAction ? 'a' : 'li';
+            let itemAttrs = {
+                class: 'list-group-item d-flex justify-content-between align-items-center' + (isAction ? ' list-group-item-action' : '') + active + disabled + (item.classes ? ' ' + item.classes : '')
+            };
+            if (item.url) itemAttrs.href = item.url;
+            if (item.id) itemAttrs.id = item.id;
+
+            let badgeHtml = item.badge ? this.badge(null, item.badgeColor || 'primary', item.badge) : '';
+            let contentHtml = (item.icon ? this.icon(item.icon) + ' ' : '') + (item.text || item.content || '');
+            itemsHtml += this.element(tag, itemAttrs, contentHtml + badgeHtml);
+        }
+        return this.element('ul', { class: 'list-group' + flushClass + (classes ? ' ' + classes : '') }, itemsHtml);
+    }
+
+    // Offcanvas (Drawer lateral)
+    offcanvas(id, title = '', content = '', position = 'end', classes = '') {
+        let closeBtn = this.element('button', { type: 'button', class: 'btn-close text-reset', 'data-bs-dismiss': 'offcanvas', 'aria-label': 'Close' });
+        let offcanvasTitle = this.element('h5', { class: 'offcanvas-title', id: id + 'Label' }, title);
+        let header = this.div('offcanvas-header', offcanvasTitle + closeBtn);
+        let body = this.div('offcanvas-body', content);
+
+        return this.element('div', {
+            class: 'offcanvas offcanvas-' + position + ' ' + classes,
+            tabindex: '-1',
+            id: id,
+            'aria-labelledby': id + 'Label'
+        }, header + body);
+    }
+
+    // Skeleton / Placeholders
+    skeleton(type = 'text', count = 1, classes = '') {
+        let html = '';
+        for (let i = 0; i < count; i++) {
+            if (type === 'card') {
+                let imgPlaceholder = this.div('card-img-top placeholder-glow', this.span('placeholder col-12 bg-secondary', '', { style: 'height: 140px; display: block;' }));
+                let titlePl = this.element('p', { class: 'card-text placeholder-glow' }, this.span('placeholder col-6'));
+                let textPl = this.element('p', { class: 'card-text placeholder-glow' }, this.span('placeholder col-7 me-1') + this.span('placeholder col-4') + this.span('placeholder col-4 me-1') + this.span('placeholder col-6'));
+                let btnPl = this.element('a', { class: 'btn btn-primary disabled placeholder col-6' }, '');
+                html += this.div('card shadow-sm mb-3 ' + classes, imgPlaceholder + this.div('card-body', titlePl + textPl + btnPl));
+            } else {
+                html += this.element('p', { class: 'placeholder-glow mb-2 ' + classes }, this.span('placeholder col-12 bg-secondary-subtle'));
+            }
+        }
+        return html;
+    }
+
     // Ícones (Bootstrap Icons nativo)
     icon(iconName, classes = '') {
         let name = iconName.startsWith('bi-') ? iconName : 'bi-' + iconName;
