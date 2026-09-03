@@ -110,8 +110,12 @@ kore seed
 # Mapeamento de rotas e endpoints detectados por Reflection
 kore routes
 
+# Gerar especificação OpenAPI e inspecionar Swagger UI (/docs)
+kore docs
+
 # Scaffolding completo de CRUD (API Controller + Front View + Front Controller)
 kore make:crud Products
+
 
 # Criar nova migração timestamped
 kore make:migration CreateOrdersTable

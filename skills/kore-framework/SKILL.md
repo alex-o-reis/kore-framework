@@ -36,6 +36,7 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 ### CLI Dinamica (`kore`)
 - `kore dev`: Inicia servidor Full-Stack (Backend na 8000 + Frontend na 3000).
 - `kore doctor`: Diagnostico do ambiente e saude das extensoes.
+- `kore docs`: Gera openapi.json e exibe documentacao Swagger UI em `/docs`.
 - `kore seed`: Popula o banco com seeders (Admin padrao: admin / admin123).
 - `kore routes`: Lista todos os endpoints e handlers mapeados por Reflection.
 - `kore make:models`: Gera/atualiza Traits e Models a partir do banco (SQLite/MySQL).
@@ -46,11 +47,11 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 - `kore make:controller <Nome>`: Cria scaffold de controller.
 - `kore serve [porta]`: Inicia servidor embutido da API.
 
-
 ## 3. Frontend Guide (`kore-front`)
 - Single Page Application com roteamento por Hash.
-- Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI`.
+- Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI` (`UI.card()`, `UI.input()`, `UI.switch()`, `UI.fileUpload()`, `UI.toast()`, `UI.button()`, etc.).
 - Suporte a multiplos Renderers customizados estendendo `BaseRenderer`.
+
 
 ## 4. Topologia: Monorepo vs Repositorios Separados (Multi-Repo)
 - **Monorepo**: Backend e Frontend no mesmo repositorio com `kore dev` orquestrando ambos.
