@@ -1,0 +1,28 @@
+﻿# Ambientes e Configurações Sensíveis
+.env
+*.env
+.env.local
+.env.*.local
+
+# Dependências e Pacotes
+vendor/
+node_modules/
+
+# Logs e Dados Temporários
+*.log
+logs/
+tmp/
+temp/
+
+# IDEs e Editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Uploads / Arquivos gerados por usuários
+uploads/
+storage/logs/
+storage/framework/
