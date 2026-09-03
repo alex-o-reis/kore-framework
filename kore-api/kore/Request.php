@@ -48,6 +48,41 @@ class Request
     }
 
     /**
+     * Get a header value from request
+     */
+    public function header(string $key, $default = null)
+    {
+        $headerKey = 'HTTP_' . strtoupper(str_replace('-', '_', $key));
+        if (isset($this->server[$headerKey])) {
+            return $this->server[$headerKey];
+        }
+        if (isset($this->server[$key])) {
+            return $this->server[$key];
+        }
+        if (function_exists('getallheaders')) {
+            $headers = getallheaders();
+            foreach ($headers as $k => $v) {
+                if (strcasecmp($k, $key) === 0) {
+                    return $v;
+                }
+            }
+        }
+        return $default;
+    }
+
+    /**
+     * Extract Bearer Token from Authorization Header
+     */
+    public function bearerToken(): ?string
+    {
+        $auth = $this->header('Authorization') ?? $this->server['HTTP_AUTHORIZATION'] ?? $this->server['REDIRECT_HTTP_AUTHORIZATION'] ?? null;
+        if ($auth && preg_match('/Bearer\s+(.*)$/i', $auth, $matches)) {
+            return trim($matches[1]);
+        }
+        return null;
+    }
+
+    /**
      * Get a value from the query string ($_GET)
      */
     public function get($key = null, $default = null)
@@ -58,6 +93,7 @@ class Request
         }
         return isset($this->get[$key]) ? $this->get[$key] : $default;
     }
+
 
     /**
      * Get a value from the request body ($_POST or JSON payload)

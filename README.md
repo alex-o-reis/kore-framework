@@ -54,9 +54,12 @@ kore-framework/
 │       ├── models/                    # Modelos de Domínio
 │       ├── traits/                    # Traits gerados automaticamente do BD
 │       ├── migrations/                # Arquivos de migração
+│       ├── seeders/                   # Seeders de população inicial (DatabaseSeeder)
+│       ├── middlewares/               # Middlewares (AuthMiddleware, etc.)
 │       └── commands/                  # Comandos CLI personalizados do desenvolvedor
 │
 ├── kore-front/                        # 🖥️ Frontend SPA MVC (JS + PHP)
+
 │   ├── kore/                          # ⚠️ Motor Nativo do Frontend
 │   │   ├── js/                        # UI Relay, Router, Model, SmartBox, Datatable
 │   │   └── renderers/                 # BaseRenderer e BootstrapRenderer
@@ -82,11 +85,14 @@ cp kore-api/.env.example kore-api/.env
 # 2. Execute as migrações iniciais no SQLite local
 kore migrate
 
-# 3. Inicie o ambiente Full-Stack (Backend na porta 8000 + Frontend na porta 3000)
+# 3. Popule o banco com o usuário administrador padrão (admin / admin123)
+kore seed
+
+# 4. Inicie o ambiente Full-Stack (Backend na porta 8000 + Frontend na porta 3000)
 kore dev
 ```
 
-> Pronto! Acesse **http://localhost:3000** no seu navegador para ver o Frontend SPA e **http://localhost:8000/index** para inspecionar a API Backend.
+> Pronto! Acesse **http://localhost:3000** no seu navegador para ver o Frontend SPA e **http://localhost:8000/index** para inspecionar a API Backend. Você já pode fazer login com **admin / admin123**!
 
 ---
 
@@ -97,6 +103,9 @@ Você pode rodar comandos diretamente com `kore <comando>` na raiz ou `php kore-
 ```bash
 # Diagnóstico de integridade e extensões do PHP
 kore doctor
+
+# Popular banco com seeders (Admin e dados de teste)
+kore seed
 
 # Mapeamento de rotas e endpoints detectados por Reflection
 kore routes
@@ -110,6 +119,7 @@ kore make:migration CreateOrdersTable
 # Gerar/atualizar Models e Traits a partir das tabelas do banco
 kore make:models
 ```
+
 
 ---
 

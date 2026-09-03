@@ -14,7 +14,6 @@ class Auth extends Controller
             return $this->error('Username e password são obrigatórios.', 400);
         }
 
-        // Exemplo genérico de verificação no banco se a tabela users existir
         try {
             $stmt = Model::query("SELECT * FROM users WHERE (username = ? OR email = ?) AND deleted_at IS NULL LIMIT 1", [$username, $username]);
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,5 +34,24 @@ class Auth extends Controller
         }
 
         return $this->error('Usuário ou senha inválidos.', 401);
+    }
+
+    public function get_me()
+    {
+        $token = $this->request->bearerToken();
+        if (!$token) {
+            return $this->error('Não autenticado.', 401);
+        }
+
+        try {
+            $stmt = Model::query("SELECT id, name, username, email, role, avatar, created_at FROM users WHERE token = ? AND deleted_at IS NULL LIMIT 1", [$token]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user) {
+                return $this->json(['user' => $user]);
+            }
+        } catch (Exception $e) {}
+
+        return $this->error('Sessão expirada ou inválida.', 401);
     }
 }

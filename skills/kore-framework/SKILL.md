@@ -31,10 +31,12 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
   - `POST /users` -> `Users::post()`
   - `POST /users/activate/5` -> `Users::post_activate(5)`
   - `DELETE /users/5` -> `Users::delete(5)`
+- **Middlewares**: Proteja controllers adicionando `protected array $middleware = ['AuthMiddleware'];`.
 
 ### CLI Dinamica (`kore`)
 - `kore dev`: Inicia servidor Full-Stack (Backend na 8000 + Frontend na 3000).
 - `kore doctor`: Diagnostico do ambiente e saude das extensoes.
+- `kore seed`: Popula o banco com seeders (Admin padrao: admin / admin123).
 - `kore routes`: Lista todos os endpoints e handlers mapeados por Reflection.
 - `kore make:models`: Gera/atualiza Traits e Models a partir do banco (SQLite/MySQL).
 - `kore make:crud <Nome>`: Gera scaffold completo de CRUD (API e Frontend).
@@ -43,6 +45,7 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 - `kore make:migration <Nome>`: Cria nova migracao.
 - `kore make:controller <Nome>`: Cria scaffold de controller.
 - `kore serve [porta]`: Inicia servidor embutido da API.
+
 
 ## 3. Frontend Guide (`kore-front`)
 - Single Page Application com roteamento por Hash.
