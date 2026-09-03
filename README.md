@@ -111,6 +111,25 @@ kore make:migration CreateOrdersTable
 kore make:models
 ```
 
+---
+
+## 🏗️ Flexibilidade Arquitetural: Monorepo vs Repositórios Separados
+
+O Kore Framework foi projetado com **desacoplamento total** entre camadas. Você pode utilizá-lo de duas formas:
+
+### 1. Monorepo (Padrão)
+Mantém `kore-api` e `kore-front` no mesmo repositório Git, compartilhando o script unificado `kore dev` para desenvolvimento local ágil.
+
+### 2. Repositórios Separados (Multi-Repo)
+Se a sua equipe optar por dividir o projeto em dois repositórios independentes (`meu-projeto-api` e `meu-projeto-front`):
+- **Backend Isolado (`meu-projeto-api`)**:
+  - Contém suporte nativo a **CORS e Preflight (`OPTIONS`)** habilitado no `Controller.php`.
+  - A CLI detecta automaticamente a raiz do projeto para carregar comandos de `app/commands/`.
+- **Frontend Isolado (`meu-projeto-front`)**:
+  - Configure a URL da API em `app/config.js` (`API_URL: "https://api.meusistema.com"`).
+  - Como o frontend é uma Single Page Application pura (HTML/JS com UI Relay), **ele pode ser hospedado como SPA estática** (Vercel, Netlify, Cloudflare Pages, AWS S3) ou em servidores Apache/Nginx sem dependência de backend local.
+
+
 
 
 ---

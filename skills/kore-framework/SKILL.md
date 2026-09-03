@@ -49,3 +49,10 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 - Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI`.
 - Suporte a multiplos Renderers customizados estendendo `BaseRenderer`.
 
+## 4. Topologia: Monorepo vs Repositorios Separados (Multi-Repo)
+- **Monorepo**: Backend e Frontend no mesmo repositorio com `kore dev` orquestrando ambos.
+- **Multi-Repo**:
+  - `kore-api` como repositorio isolado: CORS e Preflight OPTIONS habilitados nativamente em `Controller.php`.
+  - `kore-front` como repositorio isolado: SPA estatica pura, consome `API_URL` configurada em `app/config.js` e pode ser hospedada em CDNs estaticas (Vercel, Netlify, Cloudflare Pages, S3).
+
+

@@ -11,9 +11,12 @@ class Kernel
     {
         $this->commandPaths = [
             __DIR__ . '/commands',
-            __DIR__ . '/../../app/commands'
+            __DIR__ . '/../commands',
+            __DIR__ . '/../../app/commands',
+            __DIR__ . '/../../../app/commands'
         ];
     }
+
 
     public function handle(array $argv): void
     {
