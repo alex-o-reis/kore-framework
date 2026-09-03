@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../kore/Controller.php';
 
 class Index extends Controller
 {
-    public function get()
+    public function get(...$args)
     {
         return $this->json([
             'framework' => 'Kore Framework (KKF)',

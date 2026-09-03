@@ -25,31 +25,6 @@ class Controller
         return $this->request;
     }
 
-    public function get(...$args)
-    {
-        $this->not_implemented('GET');
-    }
-
-    public function post(...$args)
-    {
-        $this->not_implemented('POST');
-    }
-
-    public function put(...$args)
-    {
-        $this->not_implemented('PUT');
-    }
-
-    public function delete(...$args)
-    {
-        $this->not_implemented('DELETE');
-    }
-
-    public function patch(...$args)
-    {
-        $this->not_implemented('PATCH');
-    }
-
     public function __call($name, $arguments)
     {
         $this->not_implemented(strtoupper($name));

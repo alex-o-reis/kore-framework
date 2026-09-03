@@ -1,4 +1,4 @@
-﻿<div align=center>
+<div align=center>
 
 # 🚀 Kore Framework (Kodey Kore Framework - KKF)
 
@@ -18,7 +18,7 @@
 ## 💡 O que é o Kore Framework?
 
 O **Kore Framework (KKF)** é um ecossistema full-stack moderno construído com dois pilares fundamentais:
-1. **API Backend desacoplada (kore-api)**: Roteamento automático por *Reflection*, ORM ativo com *Traits regeneráveis* a partir do banco de dados e CLI de migrações.
+1. **API Backend desacoplada (kore-api)**: Roteamento automático por *Reflection*, ORM ativo com *Traits regeneráveis* a partir do banco de dados e CLI de comandos dinâmicos.
 2. **Frontend SPA Reativo (kore-front)**: Separação radical de camadas com o padrão **UI Relay Engine**, permitindo que suas telas sejam geradas de forma dinâmica e agnóstica a frameworks visuais (com suporte nativo e gratuito a **Bootstrap 5.3+**).
 
 ---
@@ -26,30 +26,33 @@ O **Kore Framework (KKF)** é um ecossistema full-stack moderno construído com 
 ## ✨ Principais Funcionalidades
 
 - 🧠 **AI-Ready & First-Class AI Support**: Inclui manifesto de agentes (skills/kore-framework/SKILL.md) que permite que IAs entendam o framework instantaneamente e gerem código 100% aderente aos padrões.
-- 🔄 **Traits Regeneráveis (ORM Seguro)**: Altere seu banco de dados e regenere os Traits (php kore.php make:models) sem jamais perder seus métodos e regras de negócio nos Models.
+- 🔄 **Traits Regeneráveis (ORM Seguro)**: Altere seu banco de dados e regenere os Traits (kore make:models) sem jamais perder seus métodos e regras de negócio nos Models.
 - 🎨 **UI Relay Engine**: Nunca mais misture HTML cru nos seus controladores de tela. Chame UI.card(), UI.row(), UI.button() e troque o tema ou Renderer sem refatorar o código da aplicação.
 - 🏢 **Multi-Tenancy Híbrido**: Opere no modo *Standalone* (banco único) ou *Subdomínio semi-automático* apenas alterando uma variável de ambiente no .env.
-- ⚡ **CLI Integrada (kore.php)**: Migrations, rollback, scaffolds de controllers e gerador de models diretamente no terminal.
+- ⚡ **CLI Dinâmica e Extensível (kore)**: CLI com carregamento dinâmico via Reflection (kore doctor, kore make:crud, kore routes, kore migrate, kore serve).
 
 ---
 
 ## 📁 Estrutura do Projeto
 
-`	ext
+```text
 kore-framework/
 ├── kore-api/                          # 🛠️ Backend PHP REST API
 │   ├── kore/                          # ⚠️ Motor Nativo do Backend (Imutável)
+│   │   ├── Kore.php                   # Metadados e versão do framework
 │   │   ├── Controller.php             # Base Controller com pipeline de middlewares e JSON
 │   │   ├── Model.php                  # ORM PDO com Dynamic Properties
 │   │   ├── Router.php                 # Roteador por Reflection
 │   │   ├── ModelGenerator.php         # Gerador de Traits/Models a partir do Banco
-│   │   └── Migrator.php               # Executor de Migrações
+│   │   ├── Migrator.php               # Executor de Migrações
+│   │   └── cli/                       # Motor CLI por Reflection (Kernel & Commands)
 │   └── app/                           # 🧑‍💻 Userspace (Seu Código de Backend)
 │       ├── config/database.php        # Conexão e detecção de tenant
 │       ├── controllers/               # Controladores da API
 │       ├── models/                    # Modelos de Domínio
 │       ├── traits/                    # Traits gerados automaticamente do BD
-│       └── migrations/                # Arquivos de migração
+│       ├── migrations/                # Arquivos de migração
+│       └── commands/                  # Comandos CLI personalizados do desenvolvedor
 │
 ├── kore-front/                        # 🖥️ Frontend SPA MVC (JS + PHP)
 │   ├── kore/                          # ⚠️ Motor Nativo do Frontend
@@ -58,37 +61,50 @@ kore-framework/
 │   ├── templates/                     # Layouts visuais (kore-default Bootstrap 5)
 │   └── app/                           # 🧑‍💻 Userspace (Suas Telas, Views e Config)
 │
+├── kore                               # 🚀 Executável CLI para Linux/macOS
+├── kore.bat                           # 🚀 Executável CLI para Windows
 └── skills/kore-framework/             # 🤖 Skill de IA para Agentes Autônomos
-`
+```
 
 ---
 
 ## ⚡ Começando em 3 Minutos
 
-### 1. Clonando e Configurando o Backend (kore-api)
-`ash
+### 1. Clonando e Configurando o Backend (`kore-api`)
+```bash
 cd kore-api
 cp .env.example .env
 # Configure as credenciais do seu banco de dados no .env
+```
+
+> **💡 Dica da CLI**: Você pode executar os comandos usando o atalho direto `kore <comando>` na raiz do projeto ou `php kore.php <comando>` (dentro de `kore-api`):
+
+```bash
+# Verificar diagnóstico do ambiente
+kore doctor
 
 # Executar migrações
-php kore.php migrate
+kore migrate
 
 # Gerar Models e Traits com base no schema do banco
-php kore.php make:models
+kore make:models
+
+# Listar todas as rotas detectadas por Reflection
+kore routes
 
 # Iniciar servidor da API
-php kore.php serve 8000
-`
+kore serve 8000
+```
 
-### 2. Executando o Frontend (kore-front)
-1. Verifique a URL da API em kore-front/app/config.js (http://localhost:8000/).
+### 2. Executando o Frontend (`kore-front`)
+1. Verifique a URL da API em `kore-front/app/config.js` (`http://localhost:8000/`).
 2. Sirva o frontend com qualquer servidor PHP/Apache:
-`ash
+```bash
 cd kore-front
 php -S localhost:3000
-`
-3. Acesse http://localhost:3000 no seu navegador!
+```
+3. Acesse `http://localhost:3000` no seu navegador!
+
 
 ---
 
