@@ -30,20 +30,28 @@ class BaseRenderer {
         return '<' + name + attrHtml + '>' + (content !== null && content !== undefined ? content : '') + '</' + name + '>';
     }
 
-    div(classes, content = '') {
-        return this.element('div', { class: classes }, content);
+    div(classes = '', content = '', attributes = {}) {
+        return this.element('div', Object.assign({ class: classes }, attributes), content);
     }
 
-    span(classes, content = '') {
-        return this.element('span', { class: classes }, content);
+    span(classes = '', content = '', attributes = {}) {
+        return this.element('span', Object.assign({ class: classes }, attributes), content);
+    }
+
+    p(content = '', classes = '', attributes = {}) {
+        return this.element('p', Object.assign({ class: classes }, attributes), content);
     }
 
     hr(classes = '', content = '') {
         return this.element('hr', { class: classes }, content);
     }
 
-    href(text, url = '#', target = '_self', classes = '', data = {}) {
-        let attrs = { href: url, target: target, class: classes };
+    br() {
+        return this.element('br');
+    }
+
+    href(text, url = '#', target = '_self', classes = '', data = {}, attributes = {}) {
+        let attrs = Object.assign({ href: url, target: target, class: classes }, attributes);
         if (typeof data === 'object') {
             for (let [k, v] of Object.entries(data)) {
                 attrs['data-' + k] = v;
@@ -53,6 +61,51 @@ class BaseRenderer {
         }
         return this.element('a', attrs, text);
     }
+
+    a(text, url = '#', target = '_self', classes = '', attributes = {}) {
+        return this.href(text, url, target, classes, {}, attributes);
+    }
+
+    img(src, alt = '', classes = '', attributes = {}) {
+        return this.element('img', Object.assign({ src: src, alt: alt, class: classes }, attributes));
+    }
+
+    // Títulos (Headings)
+    h(level = 1, content = '', classes = '', attributes = {}) {
+        return this.element('h' + Math.min(Math.max(level, 1), 6), Object.assign({ class: classes }, attributes), content);
+    }
+    h1(content = '', classes = '', attributes = {}) { return this.h(1, content, classes, attributes); }
+    h2(content = '', classes = '', attributes = {}) { return this.h(2, content, classes, attributes); }
+    h3(content = '', classes = '', attributes = {}) { return this.h(3, content, classes, attributes); }
+    h4(content = '', classes = '', attributes = {}) { return this.h(4, content, classes, attributes); }
+    h5(content = '', classes = '', attributes = {}) { return this.h(5, content, classes, attributes); }
+    h6(content = '', classes = '', attributes = {}) { return this.h(6, content, classes, attributes); }
+
+    // Formatação Tipográfica (Inlines)
+    b(content = '', classes = '') { return this.element('b', { class: classes }, content); }
+    strong(content = '', classes = '') { return this.element('strong', { class: classes }, content); }
+    i(content = '', classes = '') { return this.element('i', { class: classes }, content); }
+    em(content = '', classes = '') { return this.element('em', { class: classes }, content); }
+    u(content = '', classes = '') { return this.element('u', { class: classes }, content); }
+    s(content = '', classes = '') { return this.element('s', { class: classes }, content); }
+    small(content = '', classes = '') { return this.element('small', { class: classes }, content); }
+    code(content = '', classes = '') { return this.element('code', { class: classes }, content); }
+    pre(content = '', classes = '') { return this.element('pre', { class: classes }, content); }
+
+    // Listas HTML
+    ul(content = '', classes = '', attributes = {}) { return this.element('ul', Object.assign({ class: classes }, attributes), content); }
+    ol(content = '', classes = '', attributes = {}) { return this.element('ol', Object.assign({ class: classes }, attributes), content); }
+    li(content = '', classes = '', attributes = {}) { return this.element('li', Object.assign({ class: classes }, attributes), content); }
+
+    // Tabelas HTML
+    table(content = '', classes = 'table', attributes = {}) { return this.element('table', Object.assign({ class: classes }, attributes), content); }
+    thead(content = '', classes = '', attributes = {}) { return this.element('thead', Object.assign({ class: classes }, attributes), content); }
+    tbody(content = '', classes = '', attributes = {}) { return this.element('tbody', Object.assign({ class: classes }, attributes), content); }
+    tfoot(content = '', classes = '', attributes = {}) { return this.element('tfoot', Object.assign({ class: classes }, attributes), content); }
+    tr(content = '', classes = '', attributes = {}) { return this.element('tr', Object.assign({ class: classes }, attributes), content); }
+    th(content = '', classes = '', attributes = {}) { return this.element('th', Object.assign({ class: classes }, attributes), content); }
+    td(content = '', classes = '', attributes = {}) { return this.element('td', Object.assign({ class: classes }, attributes), content); }
+
 
     // Grid System
     row(content = '', classes = '') {

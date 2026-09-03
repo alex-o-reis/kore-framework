@@ -50,13 +50,17 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 ## 3. Frontend Guide (`kore-front`)
 - Single Page Application com roteamento por Hash.
 - Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI`:
+  - **HTML Primitivos & Tipografia**: `UI.div()`, `UI.span()`, `UI.p()`, `UI.hr()`, `UI.br()`, `UI.a()`, `UI.href()`, `UI.img()`, `UI.h1()` a `UI.h6()`, `UI.b()`, `UI.strong()`, `UI.i()`, `UI.em()`, `UI.u()`, `UI.s()`, `UI.small()`, `UI.code()`, `UI.pre()`.
+  - **Tabelas & Listas**: `UI.table()`, `UI.thead()`, `UI.tbody()`, `UI.tfoot()`, `UI.tr()`, `UI.th()`, `UI.td()`, `UI.ul()`, `UI.ol()`, `UI.li()`.
   - **Containers & Layout**: `UI.row()`, `UI.col()`, `UI.card()`, `UI.cardHeader()`, `UI.cardBody()`, `UI.cardFooter()`.
   - **Formulários**: `UI.input()`, `UI.inputGroup()`, `UI.textarea()`, `UI.select()`, `UI.checkbox()`, `UI.radioButton()`, `UI.switch()`, `UI.fileUpload()`, `UI.hidden()`.
   - **Navegação & Estrutura**: `UI.tabs()`, `UI.tabContent()`, `UI.accordion()`, `UI.breadcrumb()`, `UI.pagination()`.
   - **Ações & Menus**: `UI.button()`, `UI.buttonGroup()`, `UI.dropdown()`, `UI.listGroup()`.
   - **Feedback & Diálogos**: `UI.modal()`, `UI.confirmDialog()`, `UI.offcanvas()`, `UI.alert()`, `UI.badge()`, `UI.toast()`, `UI.progressBar()`, `UI.skeleton()`, `UI.icon()`, `UI.loadingIcon()`.
   - **Helpers DOM**: `UI.setValue()`, `UI.showModal()`, `UI.hideModal()`, `UI.showOffcanvas()`, `UI.hideOffcanvas()`.
+  - **Classes CSS Utilitárias Nativas**: `.shadow-xs`, `.shadow-card`, `.shadow-hover`, `.rounded-xl`, `.rounded-2xl`, `.border-dashed`, `.border-light-subtle`, `.cursor-pointer`, `.transition-all`, `.opacity-hover`, `.text-truncate-2`, `.custom-scrollbar`, `.pulse-dot`.
 - Suporte a multiplos Renderers customizados estendendo `BaseRenderer`.
+
 
 
 

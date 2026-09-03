@@ -48,30 +48,82 @@ class UI {
         });
     }
 
-    // --- Relay para o Renderer Ativo ---
+    // --- Relay para o Renderer Ativo (HTML Base & Typography) ---
     static element(name, attributes, content) {
         return UI.getRenderer().element(name, attributes, content);
     }
 
-    static div(classes, content) {
-        return UI.getRenderer().div(classes, content);
+    static div(classes, content, attributes) {
+        return UI.getRenderer().div(classes, content, attributes);
     }
 
-    static span(classes, content) {
-        return UI.getRenderer().span(classes, content);
+    static span(classes, content, attributes) {
+        return UI.getRenderer().span(classes, content, attributes);
+    }
+
+    static p(content, classes, attributes) {
+        return UI.getRenderer().p(content, classes, attributes);
     }
 
     static hr(classes, content) {
         return UI.getRenderer().hr(classes, content);
     }
 
-    static href(text, url, target, classes, data) {
-        return UI.getRenderer().href(text, url, target, classes, data);
+    static br() {
+        return UI.getRenderer().br();
     }
 
+    static href(text, url, target, classes, data, attributes) {
+        return UI.getRenderer().href(text, url, target, classes, data, attributes);
+    }
+
+    static a(text, url, target, classes, attributes) {
+        return UI.getRenderer().a(text, url, target, classes, attributes);
+    }
+
+    static img(src, alt, classes, attributes) {
+        return UI.getRenderer().img(src, alt, classes, attributes);
+    }
+
+    // Títulos (Headings)
+    static h(level, content, classes, attributes) { return UI.getRenderer().h(level, content, classes, attributes); }
+    static h1(content, classes, attributes) { return UI.getRenderer().h1(content, classes, attributes); }
+    static h2(content, classes, attributes) { return UI.getRenderer().h2(content, classes, attributes); }
+    static h3(content, classes, attributes) { return UI.getRenderer().h3(content, classes, attributes); }
+    static h4(content, classes, attributes) { return UI.getRenderer().h4(content, classes, attributes); }
+    static h5(content, classes, attributes) { return UI.getRenderer().h5(content, classes, attributes); }
+    static h6(content, classes, attributes) { return UI.getRenderer().h6(content, classes, attributes); }
+
+    // Formatação Tipográfica (Inlines)
+    static b(content, classes) { return UI.getRenderer().b(content, classes); }
+    static strong(content, classes) { return UI.getRenderer().strong(content, classes); }
+    static i(content, classes) { return UI.getRenderer().i(content, classes); }
+    static em(content, classes) { return UI.getRenderer().em(content, classes); }
+    static u(content, classes) { return UI.getRenderer().u(content, classes); }
+    static s(content, classes) { return UI.getRenderer().s(content, classes); }
+    static small(content, classes) { return UI.getRenderer().small(content, classes); }
+    static code(content, classes) { return UI.getRenderer().code(content, classes); }
+    static pre(content, classes) { return UI.getRenderer().pre(content, classes); }
+
+    // Listas HTML
+    static ul(content, classes, attributes) { return UI.getRenderer().ul(content, classes, attributes); }
+    static ol(content, classes, attributes) { return UI.getRenderer().ol(content, classes, attributes); }
+    static li(content, classes, attributes) { return UI.getRenderer().li(content, classes, attributes); }
+
+    // Tabelas HTML
+    static table(content, classes, attributes) { return UI.getRenderer().table(content, classes, attributes); }
+    static thead(content, classes, attributes) { return UI.getRenderer().thead(content, classes, attributes); }
+    static tbody(content, classes, attributes) { return UI.getRenderer().tbody(content, classes, attributes); }
+    static tfoot(content, classes, attributes) { return UI.getRenderer().tfoot(content, classes, attributes); }
+    static tr(content, classes, attributes) { return UI.getRenderer().tr(content, classes, attributes); }
+    static th(content, classes, attributes) { return UI.getRenderer().th(content, classes, attributes); }
+    static td(content, classes, attributes) { return UI.getRenderer().td(content, classes, attributes); }
+
+    // --- Relay para Componentes de Layout & Forms ---
     static row(content, classes) {
         return UI.getRenderer().row(content, classes);
     }
+
 
     static col(size, content, classes) {
         return UI.getRenderer().col(size, content, classes);
