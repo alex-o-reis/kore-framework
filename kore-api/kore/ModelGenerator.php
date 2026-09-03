@@ -32,13 +32,20 @@ class ModelGenerator
 
         echo "Iniciando leitura do banco de dados...\n";
 
-        $stmt = Model::query('SHOW TABLES');
+        $driver = Model::getDriver();
         $tables = [];
-        while ($row = $stmt->fetch(PDO::FETCH_NUM))
-        {
-            if ($row[0] !== 'migrations')
-            {
+
+        if ($driver === 'sqlite') {
+            $stmt = Model::query("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' AND name != 'migrations'");
+            while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
                 $tables[] = $row[0];
+            }
+        } else {
+            $stmt = Model::query('SHOW TABLES');
+            while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
+                if ($row[0] !== 'migrations') {
+                    $tables[] = $row[0];
+                }
             }
         }
 
@@ -56,18 +63,31 @@ class ModelGenerator
             $className = self::studlyCase($singularName);
             $traitName = $className . 'Trait';
 
-            $stmtCols = Model::query("DESCRIBE `" . $table . "`");
             $columns = [];
             $primaryKey = 'id';
 
-            while ($col = $stmtCols->fetch(PDO::FETCH_ASSOC))
-            {
-                $columns[] = $col;
-                if ($col['Key'] === 'PRI')
-                {
-                    $primaryKey = $col['Field'];
+            if ($driver === 'sqlite') {
+                $stmtCols = Model::query("PRAGMA table_info(`" . $table . "`)");
+                while ($col = $stmtCols->fetch(PDO::FETCH_ASSOC)) {
+                    $columns[] = [
+                        'Field' => $col['name'],
+                        'Default' => $col['dflt_value'],
+                        'Key' => $col['pk'] ? 'PRI' : ''
+                    ];
+                    if ($col['pk']) {
+                        $primaryKey = $col['name'];
+                    }
+                }
+            } else {
+                $stmtCols = Model::query("DESCRIBE `" . $table . "`");
+                while ($col = $stmtCols->fetch(PDO::FETCH_ASSOC)) {
+                    $columns[] = $col;
+                    if ($col['Key'] === 'PRI') {
+                        $primaryKey = $col['Field'];
+                    }
                 }
             }
+
 
             // 1. Gerar Trait
             $traitFile = $this->traitsDir . '/' . $traitName . '.php';
@@ -80,21 +100,23 @@ class ModelGenerator
                 $default = $colInfo['Default'];
                 $propName = strtoupper($column);
 
-                if ($default !== null && $default !== 'CURRENT_TIMESTAMP')
+                if ($default !== null && $default !== 'CURRENT_TIMESTAMP' && strtoupper($default) !== 'NULL')
                 {
-                    if (is_numeric($default))
+                    $cleanDefault = trim($default, "'\"");
+                    if (is_numeric($cleanDefault))
                     {
-                        $traitContent .= "    public \$" . $propName . " = " . $default . ";\n";
+                        $traitContent .= "    public \$" . $propName . " = " . $cleanDefault . ";\n";
                     }
                     else
                     {
-                        $traitContent .= "    public \$" . $propName . " = '" . $default . "';\n";
+                        $traitContent .= "    public \$" . $propName . " = '" . addslashes($cleanDefault) . "';\n";
                     }
                 }
                 else
                 {
                     $traitContent .= "    public \$" . $propName . ";\n";
                 }
+
             }
             $traitContent .= "}\n";
 

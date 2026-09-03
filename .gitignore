@@ -1,4 +1,4 @@
-﻿# Ambientes e Configurações Sensíveis
+# Ambientes e Configurações Sensíveis
 .env
 *.env
 .env.local
@@ -26,3 +26,10 @@ Thumbs.db
 uploads/
 storage/logs/
 storage/framework/
+
+# Banco de dados local SQLite
+*.sqlite
+*.sqlite3
+*.db
+!app/database/.gitkeep
+

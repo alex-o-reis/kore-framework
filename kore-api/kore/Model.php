@@ -10,13 +10,26 @@ class Model
 
     protected static $primary_key = 'id';
 
+    protected static $driver = 'mysql';
+
     /**
-     * Initializes the PDO database connection.
-     * This should ideally be called once during app bootstrap.
+     * Initializes the PDO database connection (MySQL or SQLite).
      */
-    public static function init_db($host, $db, $user, $pass, $charset = 'utf8mb4')
+    public static function init_db($host_or_path, $db = '', $user = '', $pass = '', $charset = 'utf8mb4', $driver = 'mysql')
     {
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        self::$driver = strtolower($driver);
+
+        if (self::$driver === 'sqlite') {
+            $dsn = "sqlite:" . $host_or_path;
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ];
+            self::$pdo = new PDO($dsn, null, null, $options);
+            return;
+        }
+
+        $dsn = "mysql:host=$host_or_path;dbname=$db;charset=$charset";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -31,6 +44,11 @@ class Model
         {
             throw new \PDOException($e->getMessage(), (int) $e->getCode());
         }
+    }
+
+    public static function getDriver(): string
+    {
+        return self::$driver ?? 'mysql';
     }
 
     public static function getPdo(): ?PDO
@@ -48,6 +66,17 @@ class Model
         {
             throw new Exception('Database connection not initialized. Call Model::init_db() first.');
         }
+
+        // Se for SQLite, ajusta sintaxes comuns de MySQL para SQLite
+        if (self::$driver === 'sqlite') {
+            $sql = str_ireplace('ENGINE=InnoDB', '', $sql);
+            $sql = str_ireplace('DEFAULT CHARSET=utf8mb4', '', $sql);
+            $sql = str_ireplace('INT AUTO_INCREMENT PRIMARY KEY', 'INTEGER PRIMARY KEY AUTOINCREMENT', $sql);
+            $sql = str_ireplace('ON UPDATE CURRENT_TIMESTAMP', '', $sql);
+            $sql = str_ireplace('NOW()', "datetime('now')", $sql);
+        }
+
+
         $stmt = self::$pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt;
@@ -92,13 +121,20 @@ class Model
         }
 
         // Get all database columns to match against object properties
-        $sql_columns = 'DESCRIBE ' . static::$table;
-        $stmt_cols = self::query($sql_columns);
         $columns = [];
-        while ($col = $stmt_cols->fetch())
-        {
-            $columns[] = $col['Field'];
+        if (self::$driver === 'sqlite') {
+            $stmt_cols = self::query("PRAGMA table_info(`" . static::$table . "`)");
+            while ($col = $stmt_cols->fetch()) {
+                $columns[] = $col['name'];
+            }
+        } else {
+            $sql_columns = 'DESCRIBE ' . static::$table;
+            $stmt_cols = self::query($sql_columns);
+            while ($col = $stmt_cols->fetch()) {
+                $columns[] = $col['Field'];
+            }
         }
+
 
         $data = [];
         $pk = static::$primary_key;
