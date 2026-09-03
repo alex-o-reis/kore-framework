@@ -33,6 +33,12 @@ class Model
         }
     }
 
+    public static function getPdo(): ?PDO
+    {
+        return self::$pdo;
+    }
+
+
     /**
      * Executes a custom SQL query with optional bound parameters.
      */
