@@ -58,8 +58,10 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
   - **Ações & Menus**: `UI.button()`, `UI.buttonGroup()`, `UI.dropdown()`, `UI.listGroup()`.
   - **Feedback & Diálogos**: `UI.modal()`, `UI.confirmDialog()`, `UI.offcanvas()`, `UI.alert()`, `UI.badge()`, `UI.toast()`, `UI.progressBar()`, `UI.skeleton()`, `UI.icon()`, `UI.loadingIcon()`.
   - **Helpers DOM**: `UI.setValue()`, `UI.showModal()`, `UI.hideModal()`, `UI.showOffcanvas()`, `UI.hideOffcanvas()`.
+  - **Construtor de Classes CSS & Atalhos**: `UI.classes(UI.btn('primary'), UI.shadowHover(), UI.roundedXl(), UI.dFlex(), UI.alignCenter())`.
   - **Classes CSS Utilitárias Nativas**: `.shadow-xs`, `.shadow-card`, `.shadow-hover`, `.rounded-xl`, `.rounded-2xl`, `.border-dashed`, `.border-light-subtle`, `.cursor-pointer`, `.transition-all`, `.opacity-hover`, `.text-truncate-2`, `.custom-scrollbar`, `.pulse-dot`.
 - Suporte a multiplos Renderers customizados estendendo `BaseRenderer`.
+
 
 
 

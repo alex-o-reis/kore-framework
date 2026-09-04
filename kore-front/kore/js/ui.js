@@ -28,25 +28,124 @@ class UI {
         return UI._renderer;
     }
 
-    // --- Utilitários de Formatação ---
-    static formatDate(dateStr) {
-        if (!dateStr) return '-';
-        let parts = dateStr.toString().trim().split(' ')[0].split('-');
-        if (parts.length === 3) {
-            return parts[2] + '/' + parts[1] + '/' + parts[0];
+    // --- Utilitários de Classes CSS & Concatenação ---
+    /**
+     * Mescla e sanitiza arrays ou múltiplos argumentos de classes CSS.
+     * Exemplo: UI.classes(['btn-primary', UI.shadowHover(), UI.roundedXl()])
+     * @param {...(string|Array<string>)} classList
+     * @returns {string}
+     */
+    static classes(...classList) {
+        let result = [];
+        let flat = classList.flat(Infinity);
+        for (let item of flat) {
+            if (typeof item === 'string' && item.trim()) {
+                result.push(item.trim());
+            }
         }
-        return dateStr;
+        return result.join(' ');
     }
 
-    static formatNumber(val, decimals = 2) {
-        if (val === null || val === undefined || val === '') return '0,00';
-        let num = parseFloat(val);
-        if (isNaN(num)) return '0,00';
-        return num.toLocaleString('pt-BR', {
-            minimumFractionDigits: decimals,
-            maximumFractionDigits: decimals
-        });
-    }
+    // --- Utilitários de Classes Nativas do Kore ---
+    static shadowXs() { return 'shadow-xs'; }
+    static shadowCard() { return 'shadow-card'; }
+    static shadowHover() { return 'shadow-hover'; }
+    static roundedXl() { return 'rounded-xl'; }
+    static rounded2Xl() { return 'rounded-2xl'; }
+    static borderDashed() { return 'border-dashed'; }
+    static cursorPointer() { return 'cursor-pointer'; }
+    static transitionAll() { return 'transition-all'; }
+    static opacityHover() { return 'opacity-hover'; }
+    static textTruncate2() { return 'text-truncate-2'; }
+    static customScrollbar() { return 'custom-scrollbar'; }
+    static pulseDot() { return 'pulse-dot'; }
+
+    // --- Utilitários de Classes Bootstrap Comuns ---
+    // Sombras & Bordas
+    static shadowSm() { return 'shadow-sm'; }
+    static shadow() { return 'shadow'; }
+    static shadowLg() { return 'shadow-lg'; }
+    static shadowNone() { return 'shadow-none'; }
+    static rounded() { return 'rounded'; }
+    static roundedPill() { return 'rounded-pill'; }
+    static roundedCircle() { return 'rounded-circle'; }
+    static border(side = '') { return side ? 'border-' + side : 'border'; }
+    static border0() { return 'border-0'; }
+
+    // Flex & Display
+    static dFlex() { return 'd-flex'; }
+    static dInlineFlex() { return 'd-inline-flex'; }
+    static dBlock() { return 'd-block'; }
+    static dInlineBlock() { return 'd-inline-block'; }
+    static dNone() { return 'd-none'; }
+    static flexColumn() { return 'flex-column'; }
+    static flexRow() { return 'flex-row'; }
+    static flexWrap() { return 'flex-wrap'; }
+    static justifyBetween() { return 'justify-content-between'; }
+    static justifyCenter() { return 'justify-content-center'; }
+    static justifyStart() { return 'justify-content-start'; }
+    static justifyEnd() { return 'justify-content-end'; }
+    static alignCenter() { return 'align-items-center'; }
+    static alignStart() { return 'align-items-start'; }
+    static alignEnd() { return 'align-items-end'; }
+    static gap(level = 2) { return 'gap-' + level; }
+
+    // Cores & Fundos
+    static textPrimary() { return 'text-primary'; }
+    static textSecondary() { return 'text-secondary'; }
+    static textSuccess() { return 'text-success'; }
+    static textDanger() { return 'text-danger'; }
+    static textWarning() { return 'text-warning'; }
+    static textInfo() { return 'text-info'; }
+    static textMuted() { return 'text-muted'; }
+    static textWhite() { return 'text-white'; }
+    static bgPrimary() { return 'bg-primary'; }
+    static bgSecondary() { return 'bg-secondary'; }
+    static bgSuccess() { return 'bg-success'; }
+    static bgDanger() { return 'bg-danger'; }
+    static bgWarning() { return 'bg-warning'; }
+    static bgInfo() { return 'bg-info'; }
+    static bgLight() { return 'bg-light'; }
+    static bgDark() { return 'bg-dark'; }
+    static bgWhite() { return 'bg-white'; }
+
+    // Tipografia & Alinhamento
+    static fwBold() { return 'fw-bold'; }
+    static fwSemibold() { return 'fw-semibold'; }
+    static fwMedium() { return 'fw-medium'; }
+    static fwNormal() { return 'fw-normal'; }
+    static fwLight() { return 'fw-light'; }
+    static fstItalic() { return 'fst-italic'; }
+    static textCenter() { return 'text-center'; }
+    static textStart() { return 'text-start'; }
+    static textEnd() { return 'text-end'; }
+    static textUppercase() { return 'text-uppercase'; }
+    static textCapitalize() { return 'text-capitalize'; }
+
+    // Espaçamentos (Margins & Paddings)
+    static m(val) { return 'm-' + val; }
+    static mb(val = 3) { return 'mb-' + val; }
+    static mt(val = 3) { return 'mt-' + val; }
+    static ms(val = 2) { return 'ms-' + val; }
+    static me(val = 2) { return 'me-' + val; }
+    static my(val = 3) { return 'my-' + val; }
+    static mx(val = 3) { return 'mx-' + val; }
+    static p(val) { return 'p-' + val; }
+    static pb(val = 3) { return 'pb-' + val; }
+    static pt(val = 3) { return 'pt-' + val; }
+    static ps(val = 2) { return 'ps-' + val; }
+    static pe(val = 2) { return 'pe-' + val; }
+    static py(val = 3) { return 'py-' + val; }
+    static px(val = 3) { return 'px-' + val; }
+
+    // Botões
+    static btn(color = 'primary') { return 'btn-' + color; }
+    static btnOutline(color = 'primary') { return 'btn-outline-' + color; }
+    static btnSm() { return 'btn-sm'; }
+    static btnLg() { return 'btn-lg'; }
+    static w100() { return 'w-100'; }
+    static h100() { return 'h-100'; }
+
 
     // --- Relay para o Renderer Ativo (HTML Base & Typography) ---
     static element(name, attributes, content) {
