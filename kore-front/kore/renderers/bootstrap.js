@@ -485,4 +485,45 @@ class BootstrapRenderer extends BaseRenderer {
     loadingIcon(size = '') {
         return this.element('div', { class: 'spinner-border text-primary ' + (size ? 'spinner-border-' + size : 'spinner-border-sm'), role: 'status' }, this.element('span', { class: 'visually-hidden' }, 'Carregando...'));
     }
+
+    // Componentes Ricos (SmartBox, Datatable & Charts)
+    smartbox(id, required = false, label = '', options = [], minLength = 0, disabled = false, classes = '') {
+        return this.select(id, required, label, options, minLength, disabled);
+    }
+
+    datatable(id, config = {}, classes = '') {
+        let dt = new Datatable();
+        dt.configurarDatatable(config);
+        let tableHtml = dt.criarTabela(id);
+        
+        // Auto-inicializa o DataTable após renderizar no DOM se jQuery estiver pronto
+        setTimeout(function() {
+            if (jQuery('#' + id).length && !jQuery.fn.DataTable.isDataTable('#' + id)) {
+                dt.inicializarDatatable();
+            }
+        }, 50);
+
+        return this.div('kore-datatable-wrapper ' + classes, tableHtml);
+    }
+
+    chart(id, options = {}, classes = '') {
+        let chartContainer = this.element('div', {
+            id: id,
+            class: 'kore-chart-container position-relative ' + classes,
+            style: 'min-height: ' + (options.height || '320px') + '; width: ' + (options.width || '100%') + ';'
+        }, '');
+
+        // Auto-plota o KodeyChart se a configuração tiver dados
+        if (options && (options.series || options.labels || options.type)) {
+            setTimeout(function() {
+                if (jQuery('#' + id).length && typeof KodeyCharts !== 'undefined') {
+                    let kc = new KodeyCharts(options.globalConfig || {});
+                    let chartConfig = Object.assign({}, options, { container: '#' + id });
+                    kc.plot(chartConfig);
+                }
+            }, 50);
+        }
+
+        return chartContainer;
+    }
 }

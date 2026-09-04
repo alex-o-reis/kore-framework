@@ -256,6 +256,27 @@ class UI {
         return UI.getRenderer().loadingIcon(size);
     }
 
+    // --- Componentes Ricos (SmartBox, Datatable & Charts) ---
+    static smartbox(id, required, label, options, minLength, disabled, classes) {
+        return UI.getRenderer().smartbox(id, required, label, options, minLength, disabled, classes);
+    }
+
+    static datatable(id, config, classes) {
+        return UI.getRenderer().datatable(id, config, classes);
+    }
+
+    static chart(id, options, classes) {
+        return UI.getRenderer().chart(id, options, classes);
+    }
+
+    static get KodeyCharts() {
+        return typeof KodeyCharts !== 'undefined' ? KodeyCharts : null;
+    }
+
+    static get Datatable() {
+        return typeof Datatable !== 'undefined' ? Datatable : null;
+    }
+
     // --- Helpers de Manipulação de DOM / jQuery ---
     static setValue(selectorId, value, triggerChange = true) {
         let el = jQuery(selectorId);

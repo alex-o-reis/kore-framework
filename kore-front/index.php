@@ -27,6 +27,8 @@ $version = 'v=' . KORE_VERSION;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 
     <!-- Kore Framework (kore/) -->
     <script src="kore/js/kore.js?<?=$version?>"></script>
@@ -36,6 +38,7 @@ $version = 'v=' . KORE_VERSION;
     <script src="kore/renderers/bootstrap.js?<?=$version?>"></script>
     <script src="kore/js/ui.js?<?=$version?>"></script>
 
+    <script src="kore/js/kodey-charts.js?<?=$version?>"></script>
     <script src="kore/js/smartbox.js?<?=$version?>"></script>
     <script src="kore/js/model.js?<?=$version?>"></script>
     <script src="kore/js/datatable.js?<?=$version?>"></script>

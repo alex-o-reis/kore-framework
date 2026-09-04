@@ -59,6 +59,10 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 - **Navegação & Estrutura**: `UI.tabs()`, `UI.tabContent()`, `UI.accordion()`, `UI.breadcrumb()`, `UI.pagination()`.
 - **Ações & Menus**: `UI.button()`, `UI.buttonGroup()`, `UI.dropdown()`, `UI.listGroup()`.
 - **Feedback & Diálogos**: `UI.modal()`, `UI.confirmDialog()`, `UI.offcanvas()`, `UI.alert()`, `UI.badge()`, `UI.toast()`, `UI.progressBar()`, `UI.skeleton()`, `UI.icon()`, `UI.loadingIcon()`.
+- **Componentes Ricos & Visualização**:
+  - `UI.smartbox(id, required, label, options, minLength)`: Select avançado com busca em tempo real e auto-complete flutuante.
+  - `UI.datatable(id, config, classes)`: Wrapper integrado de DataTables.net (ordenação, busca, paginação e suporte a AJAX).
+  - `UI.chart(id, options, classes)`: Integração com o motor KodeyCharts (Chart.js wrapper) para gráficos modernos de linhas, barras, colunas, áreas, pizza e rosca.
 - **Helpers DOM**: `UI.setValue()`, `UI.showModal()`, `UI.hideModal()`, `UI.showOffcanvas()`, `UI.hideOffcanvas()`.
 
 ### Camada e Construtor de Estilos (`Style.*` / `UI.Style.*`)

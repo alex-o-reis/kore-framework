@@ -258,4 +258,17 @@ class BaseRenderer {
     loadingIcon(size = '') {
         throw new Error('Method loadingIcon() must be implemented by Renderer');
     }
+
+    // Componentes Ricos (SmartBox, Datatable & Charts)
+    smartbox(id, required = false, label = '', options = [], minLength = 0, disabled = false, classes = '') {
+        throw new Error('Method smartbox() must be implemented by Renderer');
+    }
+
+    datatable(id, config = {}, classes = '') {
+        throw new Error('Method datatable() must be implemented by Renderer');
+    }
+
+    chart(id, options = {}, classes = '') {
+        throw new Error('Method chart() must be implemented by Renderer');
+    }
 }

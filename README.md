@@ -138,6 +138,10 @@ A classe `UI` provê componentes e elementos HTML prontos e agnósticos:
 - **Formulários**: `UI.input()`, `UI.inputGroup()`, `UI.select()`, `UI.switch()`, `UI.fileUpload()`, `UI.textarea()`.
 - **Navegação & Modais**: `UI.modal()`, `UI.offcanvas()`, `UI.accordion()`, `UI.tabs()`, `UI.breadcrumb()`, `UI.pagination()`.
 - **Feedback & Animações**: `UI.toast()`, `UI.alert()`, `UI.badge()`, `UI.progressBar()`, `UI.skeleton()`.
+- **Componentes Ricos**:
+  - `UI.smartbox()`: Select com busca interativa e auto-complete flutuante.
+  - `UI.datatable()`: Tabela dinâmica com paginação, busca e ordenação integrada.
+  - `UI.chart()`: Motor KodeyCharts para gráficos modernos e responsivos (Linhas, Barras, Colunas, Áreas, Rosca).
 
 ### 2. Utilitários de Estilo Tipados (`Style.*` ou `UI.Style.*`)
 Para garantir autocomplete, segurança e consistência visual, use a classe `Style` (ou `UI.classes()`):
