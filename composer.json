@@ -1,0 +1,31 @@
+{
+    "name": "kodey/kore-framework",
+    "description": "Kore Framework (KKF) - Framework PHP REST + Frontend SPA MVC com UI Relay Engine",
+    "type": "project",
+    "keywords": ["framework", "php", "spa", "ui-relay", "bootstrap5", "rest-api", "kodey"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Reis",
+            "email": "alex@kodey.com.br",
+            "homepage": "https://kodey.com.br"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "ext-pdo_sqlite": "Para uso com banco de dados SQLite local zero-config",
+        "ext-pdo_mysql": "Para conexões de produção com MySQL"
+    },
+    "bin": [
+        "kore"
+    ],
+    "scripts": {
+        "post-create-project-cmd": [
+            "php -r \"echo PHP_EOL . '======================================================' . PHP_EOL . '  Kore Framework instalado com sucesso!' . PHP_EOL . '  Execute: kore seed && kore dev' . PHP_EOL . '======================================================' . PHP_EOL . PHP_EOL;\""
+        ]
+    }
+}

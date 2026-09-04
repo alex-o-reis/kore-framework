@@ -73,26 +73,45 @@ kore-framework/
 
 ---
 
-## ⚡ Começando em 3 Minutos (Zero Configuração)
+## ⚡ Criando um Novo Projeto (3 Maneiras Rápidas)
 
-### 1. Clonando e Executando em Modo Desenvolvimento
-O Kore Framework vem pré-configurado com **SQLite nativo**, permitindo que você suba o ambiente completo imediatamente:
+Você pode criar um novo projeto em **apenas 1 comando** sem precisar clonar o repositório manualmente:
+
+### 🚀 Opção 1: Via Node / NPX (Recomendado para Ecossistema Moderno)
+```bash
+npx create-kore-app meu-projeto
+# ou
+npm init kore-app meu-projeto
+```
+
+### 🐘 Opção 2: Via Composer (Padrão PHP / Packagist)
+```bash
+composer create-project kodey/kore-framework meu-projeto
+```
+
+### ⚡ Opção 3: Via CLI Global do Kore
+```bash
+kore new meu-projeto
+```
+
+---
+
+## 🏁 Inicializando o Projeto
+
+Após criar seu projeto com qualquer uma das opções acima, acesse a pasta e suba o ambiente:
 
 ```bash
-# 1. Copie o arquivo de variáveis de ambiente
-cp kore-api/.env.example kore-api/.env
+# 1. Acesse o diretório do projeto
+cd meu-projeto
 
-# 2. Execute as migrações iniciais no SQLite local
-kore migrate
-
-# 3. Popule o banco com o usuário administrador padrão (admin / admin123)
+# 2. Popule o banco SQLite com dados iniciais (Admin: admin / admin123)
 kore seed
 
-# 4. Inicie o ambiente Full-Stack (Backend na porta 8000 + Frontend na porta 3000)
+# 3. Inicie simultaneamente a API Backend (8000) e o Frontend SPA (3000)
 kore dev
 ```
 
-> Pronto! Acesse **http://localhost:3000** no seu navegador para ver o Frontend SPA e **http://localhost:8000/index** para inspecionar a API Backend. Você já pode fazer login com **admin / admin123**!
+> Pronto! Acesse **http://localhost:3000** no seu navegador para ver o Frontend SPA e **http://localhost:8000/index** para a API REST. Faça login com **admin / admin123**!
 
 ---
 

@@ -1,0 +1,29 @@
+{
+  "name": "create-kore-app",
+  "version": "1.0.0",
+  "description": "CLI interativo e instalador oficial para criar novos projetos com Kore Framework (KKF)",
+  "main": "index.js",
+  "bin": {
+    "create-kore-app": "./index.js"
+  },
+  "keywords": [
+    "kore",
+    "kore-framework",
+    "create-kore-app",
+    "php",
+    "spa",
+    "mvc",
+    "bootstrap",
+    "ui-relay",
+    "kodey"
+  ],
+  "author": "Alex Reis <alex@kodey.com.br> (https://kodey.com.br)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex-o-reis/kore-framework.git"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
