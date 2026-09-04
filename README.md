@@ -101,6 +101,9 @@ kore dev
 Você pode rodar comandos diretamente com `kore <comando>` na raiz ou `php kore-api/kore.php <comando>`:
 
 ```bash
+# Criar um novo projeto sem clonar repositório
+kore new meu-novo-app
+
 # Diagnóstico de integridade e extensões do PHP
 kore doctor
 

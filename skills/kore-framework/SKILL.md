@@ -34,6 +34,7 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 - **Middlewares**: Proteja controllers adicionando `protected array $middleware = ['AuthMiddleware'];`.
 
 ### CLI Dinamica (`kore`)
+- `kore new <NomeDoApp>`: Inicializa um novo projeto completo do Kore Framework sem precisar clonar o repositório manualmente.
 - `kore dev`: Inicia servidor Full-Stack (Backend na 8000 + Frontend na 3000).
 - `kore doctor`: Diagnostico do ambiente e saude das extensoes.
 - `kore docs`: Gera openapi.json e exibe documentacao Swagger UI em `/docs`.
