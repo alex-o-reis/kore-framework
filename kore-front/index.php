@@ -31,9 +31,11 @@ $version = 'v=' . KORE_VERSION;
     <!-- Kore Framework (kore/) -->
     <script src="kore/js/kore.js?<?=$version?>"></script>
     <script src="kore/js/cookies.js?<?=$version?>"></script>
+    <script src="kore/js/style.js?<?=$version?>"></script>
     <script src="kore/renderers/base-renderer.js?<?=$version?>"></script>
     <script src="kore/renderers/bootstrap.js?<?=$version?>"></script>
     <script src="kore/js/ui.js?<?=$version?>"></script>
+
     <script src="kore/js/smartbox.js?<?=$version?>"></script>
     <script src="kore/js/model.js?<?=$version?>"></script>
     <script src="kore/js/datatable.js?<?=$version?>"></script>

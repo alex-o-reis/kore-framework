@@ -49,18 +49,35 @@ O **Kore Framework (Kodey Kore Framework - KKF)** e um framework full-stack modu
 
 ## 3. Frontend Guide (`kore-front`)
 - Single Page Application com roteamento por Hash.
-- Vistas herdam de `View` e montam HTML chamando exclusivamente metodos da classe `UI`:
-  - **HTML Primitivos & Tipografia**: `UI.div()`, `UI.span()`, `UI.p()`, `UI.hr()`, `UI.br()`, `UI.a()`, `UI.href()`, `UI.img()`, `UI.h1()` a `UI.h6()`, `UI.b()`, `UI.strong()`, `UI.i()`, `UI.em()`, `UI.u()`, `UI.s()`, `UI.small()`, `UI.code()`, `UI.pre()`.
-  - **Tabelas & Listas**: `UI.table()`, `UI.thead()`, `UI.tbody()`, `UI.tfoot()`, `UI.tr()`, `UI.th()`, `UI.td()`, `UI.ul()`, `UI.ol()`, `UI.li()`.
-  - **Containers & Layout**: `UI.row()`, `UI.col()`, `UI.card()`, `UI.cardHeader()`, `UI.cardBody()`, `UI.cardFooter()`.
-  - **Formulários**: `UI.input()`, `UI.inputGroup()`, `UI.textarea()`, `UI.select()`, `UI.checkbox()`, `UI.radioButton()`, `UI.switch()`, `UI.fileUpload()`, `UI.hidden()`.
-  - **Navegação & Estrutura**: `UI.tabs()`, `UI.tabContent()`, `UI.accordion()`, `UI.breadcrumb()`, `UI.pagination()`.
-  - **Ações & Menus**: `UI.button()`, `UI.buttonGroup()`, `UI.dropdown()`, `UI.listGroup()`.
-  - **Feedback & Diálogos**: `UI.modal()`, `UI.confirmDialog()`, `UI.offcanvas()`, `UI.alert()`, `UI.badge()`, `UI.toast()`, `UI.progressBar()`, `UI.skeleton()`, `UI.icon()`, `UI.loadingIcon()`.
-  - **Helpers DOM**: `UI.setValue()`, `UI.showModal()`, `UI.hideModal()`, `UI.showOffcanvas()`, `UI.hideOffcanvas()`.
-  - **Construtor de Classes CSS & Atalhos**: `UI.classes(UI.btn('primary'), UI.shadowHover(), UI.roundedXl(), UI.dFlex(), UI.alignCenter())`.
-  - **Classes CSS Utilitárias Nativas**: `.shadow-xs`, `.shadow-card`, `.shadow-hover`, `.rounded-xl`, `.rounded-2xl`, `.border-dashed`, `.border-light-subtle`, `.cursor-pointer`, `.transition-all`, `.opacity-hover`, `.text-truncate-2`, `.custom-scrollbar`, `.pulse-dot`.
-- Suporte a multiplos Renderers customizados estendendo `BaseRenderer`.
+- Vistas herdam de `View` e montam HTML chamando exclusivamente métodos da classe `UI`.
+
+### Catálogo de Componentes (`UI.*`)
+- **HTML Primitivos & Tipografia**: `UI.div()`, `UI.span()`, `UI.p()`, `UI.hr()`, `UI.br()`, `UI.a()`, `UI.href()`, `UI.img()`, `UI.h1()` a `UI.h6()`, `UI.b()`, `UI.strong()`, `UI.i()`, `UI.em()`, `UI.u()`, `UI.s()`, `UI.small()`, `UI.code()`, `UI.pre()`.
+- **Tabelas & Listas**: `UI.table()`, `UI.thead()`, `UI.tbody()`, `UI.tfoot()`, `UI.tr()`, `UI.th()`, `UI.td()`, `UI.ul()`, `UI.ol()`, `UI.li()`.
+- **Containers & Layout**: `UI.row()`, `UI.col()`, `UI.card()`, `UI.cardHeader()`, `UI.cardBody()`, `UI.cardFooter()`.
+- **Formulários**: `UI.input()`, `UI.inputGroup()`, `UI.textarea()`, `UI.select()`, `UI.checkbox()`, `UI.radioButton()`, `UI.switch()`, `UI.fileUpload()`, `UI.hidden()`.
+- **Navegação & Estrutura**: `UI.tabs()`, `UI.tabContent()`, `UI.accordion()`, `UI.breadcrumb()`, `UI.pagination()`.
+- **Ações & Menus**: `UI.button()`, `UI.buttonGroup()`, `UI.dropdown()`, `UI.listGroup()`.
+- **Feedback & Diálogos**: `UI.modal()`, `UI.confirmDialog()`, `UI.offcanvas()`, `UI.alert()`, `UI.badge()`, `UI.toast()`, `UI.progressBar()`, `UI.skeleton()`, `UI.icon()`, `UI.loadingIcon()`.
+- **Helpers DOM**: `UI.setValue()`, `UI.showModal()`, `UI.hideModal()`, `UI.showOffcanvas()`, `UI.hideOffcanvas()`.
+
+### Camada e Construtor de Estilos (`Style.*` / `UI.Style.*`)
+Para manter a separação de responsabilidades (HTML vs Classes CSS), o Kore possui o módulo `Style` e `StyleBuilder`:
+- **Mesclagem de Classes**: `UI.classes(...)` ou `Style.classes(...)` recebe strings, arrays e chamadas utilitárias e sanitiza em uma única string CSS.
+- **Utilitários Customizados do Kore**: `Style.shadowCard()`, `Style.shadowHover()`, `Style.roundedXl()`, `Style.rounded2Xl()`, `Style.borderDashed()`, `Style.cursorPointer()`, `Style.transitionAll()`, `Style.opacityHover()`, `Style.textTruncate2()`, `Style.customScrollbar()`, `Style.pulseDot()`.
+- **Utilitários Bootstrap Prontos**: `Style.dFlex()`, `Style.dNone()`, `Style.alignCenter()`, `Style.justifyBetween()`, `Style.gap(n)`, `Style.m(n)`, `Style.p(n)`, `Style.bgPrimary()`, `Style.textSuccess()`, `Style.btn('primary')`, etc.
+- **Fluent Builder**: `Style.make().btn('primary').shadowHover().roundedXl().get()`.
+- **Acesso Híbrido**: `UI.Style` ou `UI.CSS` apontam para o mesmo catálogo `Style`.
+
+```javascript
+// Exemplo de uso
+UI.button(
+    "btnSalvar",
+    "Salvar Alterações",
+    UI.classes(Style.btn('primary'), Style.shadowHover(), Style.roundedXl(), Style.dFlex(), Style.alignCenter()),
+    "saveRecord()"
+);
+```
 
 
 

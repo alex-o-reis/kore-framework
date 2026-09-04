@@ -127,7 +127,48 @@ kore make:models
 
 ---
 
+## 🎨 UI Relay Engine & Camada de Estilos (`Style`)
+
+O Frontend do Kore Framework elimina totalmente a escrita de HTML cru e classes CSS concatenadas manualmente em strings soltas.
+
+### 1. Componentes Estruturais (`UI.*`)
+A classe `UI` provê componentes e elementos HTML prontos e agnósticos:
+- **Estruturas Base**: `UI.p()`, `UI.a()`, `UI.img()`, `UI.h1()` a `UI.h6()`, `UI.b()`, `UI.strong()`, `UI.i()`, `UI.table()`, `UI.tr()`, `UI.td()`, etc.
+- **Layout & Cards**: `UI.row()`, `UI.col()`, `UI.card()`, `UI.cardHeader()`, `UI.cardBody()`, `UI.cardFooter()`.
+- **Formulários**: `UI.input()`, `UI.inputGroup()`, `UI.select()`, `UI.switch()`, `UI.fileUpload()`, `UI.textarea()`.
+- **Navegação & Modais**: `UI.modal()`, `UI.offcanvas()`, `UI.accordion()`, `UI.tabs()`, `UI.breadcrumb()`, `UI.pagination()`.
+- **Feedback & Animações**: `UI.toast()`, `UI.alert()`, `UI.badge()`, `UI.progressBar()`, `UI.skeleton()`.
+
+### 2. Utilitários de Estilo Tipados (`Style.*` ou `UI.Style.*`)
+Para garantir autocomplete, segurança e consistência visual, use a classe `Style` (ou `UI.classes()`):
+
+```javascript
+// Construção fluente ou funcional de componentes com estilos elegantes
+let meuCard = UI.card(
+    UI.h4("Novo Pedido", Style.textPrimary()),
+    UI.div(
+        UI.classes(Style.dFlex(), Style.justifyBetween(), Style.alignCenter(), Style.mb(3)),
+        UI.span(Style.textMuted(), "Status do Sistema:") +
+        UI.span(UI.classes(Style.pulseDot(), Style.bgSuccess()), "")
+    ),
+    UI.button(
+        "btnConfirmar",
+        "Confirmar Operação",
+        UI.classes(
+            Style.btn('primary'),
+            Style.shadowHover(),
+            Style.roundedXl(),
+            Style.px(4)
+        )
+    ),
+    UI.classes(Style.shadowCard(), Style.rounded2Xl(), Style.border0())
+);
+```
+
+---
+
 ## 🏗️ Flexibilidade Arquitetural: Monorepo vs Repositórios Separados
+
 
 O Kore Framework foi projetado com **desacoplamento total** entre camadas. Você pode utilizá-lo de duas formas:
 
