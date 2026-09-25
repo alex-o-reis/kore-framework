@@ -108,10 +108,15 @@ class Request
     }
 
     /**
-     * Helper to get from POST first, then fallback to GET
+     * Helper to get from POST first, then fallback to GET.
+     * If no key is provided, returns all merged input.
      */
-    public function input($key, $default = null)
+    public function input($key = null, $default = null)
     {
+        if ($key === null)
+        {
+            return array_merge($this->get, $this->post);
+        }
         if (isset($this->post[$key]))
         {
             return $this->post[$key];
@@ -121,6 +126,14 @@ class Request
             return $this->get[$key];
         }
         return $default;
+    }
+
+    /**
+     * Get all input data (query and body)
+     */
+    public function all(): array
+    {
+        return $this->input();
     }
 
     /**

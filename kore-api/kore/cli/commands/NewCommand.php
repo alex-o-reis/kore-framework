@@ -80,6 +80,13 @@ class NewCommand extends Command
             @mkdir($dbDir, 0777, true);
         }
 
+        // Garante existência do arquivo .env a partir de .env.example
+        $envExample = $targetDir . DIRECTORY_SEPARATOR . 'kore-api' . DIRECTORY_SEPARATOR . '.env.example';
+        $envTarget = $targetDir . DIRECTORY_SEPARATOR . 'kore-api' . DIRECTORY_SEPARATOR . '.env';
+        if (file_exists($envExample) && !file_exists($envTarget)) {
+            @copy($envExample, $envTarget);
+        }
+
         $this->info("\n✅ Projeto '$projectName' criado com sucesso!");
         $this->line("\nPróximos passos:");
         $this->line("  \033[33mcd $projectName\033[0m");

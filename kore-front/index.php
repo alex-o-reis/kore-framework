@@ -33,7 +33,7 @@ $version = 'v=' . KORE_VERSION;
     <!-- Kore Framework (kore/) -->
     <script src="kore/js/kore.js?<?=$version?>"></script>
     <script src="kore/js/cookies.js?<?=$version?>"></script>
-    <script src="kore/js/style.js?<?=$version?>"></script>
+    <script src="kore/js/Style.js?<?=$version?>"></script>
     <script src="kore/renderers/base-renderer.js?<?=$version?>"></script>
     <script src="kore/renderers/bootstrap.js?<?=$version?>"></script>
     <script src="kore/js/ui.js?<?=$version?>"></script>
@@ -76,12 +76,12 @@ $version = 'v=' . KORE_VERSION;
         // Inicialização do Template e Router
         jQuery(document).ready(function() {
             let templateLoader = new Template();
-            templateLoader.getTemplate('main', 'templates/kore-default/template.html', function(html) {
+            templateLoader.getTemplate('main', 'templates/kore-default/template.html?<?=$version?>', function(html) {
                 jQuery('.conteudo-principal').html(html);
-                jQuery('.kore-menu-container').html(router.createMenu());
                 
-                // Inicializa o roteador do Kore
+                // Inicializa o roteador do Kore e monta o menu
                 router.init(KoreConfig.ROUTES, KoreConfig.MENU);
+                jQuery('.kore-menu-container').html(router.createMenu(KoreConfig.MENU));
             });
         });
     </script>

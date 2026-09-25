@@ -16,11 +16,12 @@ if ($driver === 'sqlite')
         mkdir($sqliteDir, 0777, true);
     }
 
-    $configuredPath = Env::get('DB_DATABASE', 'app/database/database.sqlite');
+    $configuredPath = Env::get('DB_DATABASE', 'database/database.sqlite');
     if (str_starts_with($configuredPath, '/') || str_starts_with($configuredPath, '\\') || (strlen($configuredPath) > 2 && $configuredPath[1] === ':')) {
         $dbFile = $configuredPath;
     } else {
-        $dbFile = dirname(__DIR__) . '/' . $configuredPath;
+        $cleanPath = ltrim(preg_replace('#^app/#', '', $configuredPath), '/\\');
+        $dbFile = dirname(__DIR__) . '/' . $cleanPath;
     }
 
 

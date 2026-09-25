@@ -81,6 +81,13 @@ async function main() {
             fs.mkdirSync(dbDir, { recursive: true });
         }
 
+        // Garante existência do arquivo .env a partir de .env.example
+        const envExample = path.join(targetDir, 'kore-api', '.env.example');
+        const envTarget = path.join(targetDir, 'kore-api', '.env');
+        if (fs.existsSync(envExample) && !fs.existsSync(envTarget)) {
+            fs.copyFileSync(envExample, envTarget);
+        }
+
         console.log('\x1b[32m%s\x1b[0m', `\n✅ Projeto "${projectName}" criado com sucesso!\n`);
         console.log('Para iniciar o desenvolvimento:\n');
         console.log('\x1b[33m%s\x1b[0m', `  cd ${projectName}`);
